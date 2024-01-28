@@ -1,5 +1,8 @@
 # import section
 # pip install SpeechRecognition
+# É preciso instalar o módulo pywin32 para ser executado localmente
+# pip install pywin32
+
 import speech_recognition as sr
 from gtts import gTTS
 import os
@@ -48,21 +51,14 @@ def speak(text):
 # function to respond to commands
 def respond(text):
     print("Text from get audio " + text)
-    if 'youtube' in text:
-        speak("What do you want to search for?")
-        keyword = get_audio()
-        if keyword != '':
-            url = f"https://www.youtube.com/results?search_query={keyword}"
-            webbrowser.get().open(url)
-            speak(f"Here is what I have found for {keyword} on youtube")
-    elif 'search' in text:
-        speak("What do you want to search for?")
-        query = get_audio()
-        if query != '':
-            result = wikipedia.summary(query, sentences=3)
-            speak("According to wikipedia")
-            print(result)
-            speak(result)
+    if 'wikipedia' in text:
+        url = f"https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal"
+        webbrowser.get().open(url)
+        speak(f"Here is what I have found for wikipedia")
+    elif 'my life be like' in text:
+        url = f"https://www.youtube.com/watch?v=3shMD13Y2uU"
+        webbrowser.get().open(url)
+        speak(f"Done")
     elif 'joke' in text:
         speak(pyjokes.get_joke())
     elif 'empty recycle bin' in text:
