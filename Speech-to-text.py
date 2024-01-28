@@ -1,4 +1,5 @@
-#import section
+# import section
+# pip install SpeechRecognition
 import speech_recognition as sr
 from gtts import gTTS
 import os
@@ -12,7 +13,7 @@ import winshell
 from pygame import mixer
 
 
-#get mic audio
+# get mic audio
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -31,7 +32,8 @@ def get_audio():
             speak("Sorry, the service is not available")
     return said.lower()
 
-#speak converted audio to text
+
+# speak converted audio to text
 def speak(text):
     tts = gTTS(text=text, lang='en')
     filename = "voice.mp3"
@@ -42,20 +44,21 @@ def speak(text):
     tts.save(filename)
     playsound.playsound(filename)
 
-#function to respond to commands
+
+# function to respond to commands
 def respond(text):
     print("Text from get audio " + text)
     if 'youtube' in text:
         speak("What do you want to search for?")
         keyword = get_audio()
-        if keyword!= '':
+        if keyword != '':
             url = f"https://www.youtube.com/results?search_query={keyword}"
             webbrowser.get().open(url)
             speak(f"Here is what I have found for {keyword} on youtube")
     elif 'search' in text:
         speak("What do you want to search for?")
         query = get_audio()
-        if query !='':
+        if query != '':
             result = wikipedia.summary(query, sentences=3)
             speak("According to wikipedia")
             print(result)
@@ -71,9 +74,9 @@ def respond(text):
         speak(strTime)
     elif 'play music' in text or 'play song' in text:
         speak("Now playing...")
-        music_dir = "C:\\Users\\UserName\\Downloads\\Music\\" #add your music directory here..
+        music_dir = "C:\\Users\\UserName\\Downloads\\Music\\"  # add your music directory here..
         songs = os.listdir(music_dir)
-        #counter = 0
+        # counter = 0
         print(songs)
         playmusic(music_dir + "\\" + songs[0])
     elif 'stop music' in text:
@@ -82,18 +85,23 @@ def respond(text):
     elif 'exit' in text:
         speak("Goodbye, till next time")
         exit()
-#play music
+
+
+# play music
 def playmusic(song):
     mixer.init()
     mixer.music.load(song)
     mixer.music.play()
-#stop music
+
+
+# stop music
 def stopmusic():
     mixer.music.stop()
 
-#let's try it
-#text = get_audio()
-#speak(text)
+
+# let's try it
+# text = get_audio()
+# speak(text)
 while True:
     print("I am listening...")
     text = get_audio()
